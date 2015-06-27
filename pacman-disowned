@@ -1,6 +1,9 @@
 #!/bin/sh
 # Copied from the Arch Linux wiki:
 # https://wiki.archlinux.org/index.php?title=Pacman_tips&oldid=380070#Identify_files_not_owned_by_any_package
+# As such, it is distributed under the GNU Free Documentation License
+# https://www.gnu.org/copyleft/fdl.html
+# regardless of the license applied to the repository as a whole.
 
 tmp=${TMPDIR-/tmp}/pacman-disowned-$UID-$$
 db=$tmp/db
