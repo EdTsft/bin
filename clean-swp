@@ -1,0 +1,13 @@
+#!/bin/bash
+usage="usage: $(basename $0) DIRECTORY
+
+Recursively remove all .swp and .swo files from the given directory that
+are the same as the source file."
+if [ "$#" -ne 1 ]; then
+	echo "$usage"
+	exit 1
+fi
+
+find "$1" \( -name '*.swp' -o -name '*.swo' \) -exec dirname {} \; | sort | uniq | xargs -I'{}' bash -c "cd '{}' && vim -r 2>&1 | grep -B 3 -i 'modified: no' | head -n1 | awk '{print \$2}' | dos2unix | xargs -n1 -I XXX rm --verbose XXX"
+
+find "$1" \( -name '*.swp' -o -name '*.swo' \) -exec dirname {} \; | sort | uniq | xargs -I'{}' bash -c "cd '{}' && vim -r 2>&1 | grep -B 3 -i 'modified: yes' | head -n1 | awk '{print \$2}' | dos2unix | xargs -n1 -I XXX echo Has modifications: XXX"
